@@ -1,40 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<title>Travel Recommendation</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Travel Recommendations</title>
+
+<style>
+
+body{
+font-family: Arial;
+margin:0;
+}
+
+nav{
+background-color:#333;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+nav a{
+color:white;
+margin-right:20px;
+text-decoration:none;
+font-weight:bold;
+}
+
+nav a:hover{
+color:yellow;
+}
+
+.search-section input{
+padding:6px;
+}
+
+.search-section button{
+padding:6px 10px;
+margin-left:5px;
+}
+
+#results{
+padding:20px;
+}
+
+img{
+margin:10px;
+border-radius:8px;
+}
+
+</style>
+
 </head>
 
 <body>
 
 <nav>
+
+<div class="nav-links">
 <a href="index.html">Home</a>
 <a href="about.html">About Us</a>
 <a href="contact.html">Contact Us</a>
+</div>
+
+<div class="search-section">
+<input type="text" placeholder="Search destinations..." id="searchInput">
+<button onclick="searchDestination()">Search</button>
+<button onclick="clearSearch()">Clear</button>
+</div>
+
 </nav>
 
 <h1>Welcome to Travel Explorer</h1>
 
-<p>
-Discover amazing destinations around the world. 
-We recommend beautiful beaches, historic temples, 
-and exciting countries to visit.
-</p>
+<p>Discover amazing travel destinations around the world including beaches, temples and beautiful countries.</p>
 
-<h2>Beach Recommendation</h2>
+<!-- RESULTS AREA -->
+<div id="results"></div>
 
-<img src="images/beach1.jpg" width="300">
-<img src="images/beach2.jpg" width="300">
+<script>
 
-<h2>Temple Recommendation</h2>
+function searchDestination(){
 
-<img src="images/temple1.jpg" width="300">
-<img src="images/temple2.jpg" width="300">
+let input=document.getElementById("searchInput").value.toLowerCase();
+let results=document.getElementById("results");
 
-<h2>Country Recommendation</h2>
+results.innerHTML="";
 
+if(input.includes("country")){
+
+results.innerHTML=`
+<h2>Country Recommendations</h2>
 <img src="images/country1.jpg" width="300">
 <img src="images/country2.jpg" width="300">
+`;
+
+}
+
+else if(input.includes("temple")){
+
+results.innerHTML=`
+<h2>Temple Recommendations</h2>
+<img src="images/temple1.jpg" width="300">
+<img src="images/temple2.jpg" width="300">
+`;
+
+}
+
+else if(input.includes("beach")){
+
+results.innerHTML=`
+<h2>Beach Recommendations</h2>
+<img src="images/beach1.jpg" width="300">
+<img src="images/beach2.jpg" width="300">
+`;
+
+}
+
+else{
+
+results.innerHTML="<p>No results found. Try beach, temple, or country.</p>";
+
+}
+
+}
+
+function clearSearch(){
+document.getElementById("searchInput").value="";
+document.getElementById("results").innerHTML="";
+}
+
+</script>
 
 </body>
 </html>
