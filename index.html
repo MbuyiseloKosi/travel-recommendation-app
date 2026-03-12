@@ -2,135 +2,127 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<title>Travel Recommendations</title>
+    <meta charset="UTF-8">
+    <title>Travel Recommendations</title>
 
-<style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
 
-body{
-font-family: Arial;
-margin:0;
-}
+        nav {
+            background-color: #333;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-nav{
-background-color:#333;
-padding:15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+        nav a {
+            color: white;
+            margin-right: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-nav a{
-color:white;
-margin-right:20px;
-text-decoration:none;
-font-weight:bold;
-}
+        nav a:hover {
+            color: yellow;
+        }
 
-nav a:hover{
-color:yellow;
-}
+        .search-section input {
+            padding: 6px;
+        }
 
-.search-section input{
-padding:6px;
-}
+        .search-section button {
+            padding: 6px 10px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
 
-.search-section button{
-padding:6px 10px;
-margin-left:5px;
-}
+        #results {
+            padding: 20px;
+        }
 
-#results{
-padding:20px;
-}
-
-img{
-margin:10px;
-border-radius:8px;
-}
-
-</style>
-
+        img {
+            margin: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc; /* Helps see where an image should be */
+        }
+    </style>
 </head>
 
 <body>
 
-<nav>
+    <nav>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
 
-<div class="nav-links">
-<a href="index.html">Home</a>
-<a href="about.html">About Us</a>
-<a href="contact.html">Contact Us</a>
-</div>
+        <div class="search-section">
+            <input type="text" placeholder="Search destinations..." id="searchInput">
+            <button onclick="searchDestination()">Search</button>
+            <button onclick="clearSearch()">Clear</button>
+        </div>
+    </nav>
 
-<div class="search-section">
-<input type="text" placeholder="Search destinations..." id="searchInput">
-<button onclick="searchDestination()">Search</button>
-<button onclick="clearSearch()">Clear</button>
-</div>
+    <h1>Welcome to Travel Explorer</h1>
 
-</nav>
+    <p>Discover amazing travel destinations around the world including beaches, temples and beautiful countries.</p>
 
-<h1>Welcome to Travel Explorer</h1>
+    <div id="results"></div>
 
-<p>Discover amazing travel destinations around the world including beaches, temples and beautiful countries.</p>
+    <script>
+        function searchDestination() {
+            let input = document.getElementById("searchInput").value.toLowerCase().trim();
+            let results = document.getElementById("results");
 
-<!-- RESULTS AREA -->
-<div id="results"></div>
+            results.innerHTML = "";
 
-<script>
+            /**
+             * Helper function to handle mixed .jpg and .jpeg extensions.
+             * It tries .jpg first, then falls back to .jpeg on error.
+             */
+            const getSmartImgTag = (basePath, altName) => {
+                return `<img src="${basePath}.jpg" 
+                             width="300" 
+                             alt="${altName}" 
+                             onerror="if (this.src.endsWith('.jpg')) { this.src = '${basePath}.jpeg'; }">`;
+            };
 
-function searchDestination(){
+            if (input.includes("country")) {
+                results.innerHTML = `
+                    <h2>Country Recommendations</h2>
+                    ${getSmartImgTag('images/country1', 'Country 1')}
+                    ${getSmartImgTag('images/country2', 'Country 2')}
+                `;
+            } 
+            else if (input.includes("temple")) {
+                results.innerHTML = `
+                    <h2>Temple Recommendations</h2>
+                    ${getSmartImgTag('images/temple1', 'Temple 1')}
+                    ${getSmartImgTag('images/temple2', 'Temple 2')}
+                `;
+            } 
+            else if (input.includes("beach")) {
+                results.innerHTML = `
+                    <h2>Beach Recommendations</h2>
+                    ${getSmartImgTag('images/beach1', 'Beach 1')}
+                    ${getSmartImgTag('images/beach2', 'Beach 2')}
+                `;
+            } 
+            else if (input !== "") {
+                results.innerHTML = "<p>No results found. Try beach, temple, or country.</p>";
+            }
+        }
 
-let input=document.getElementById("searchInput").value.toLowerCase();
-let results=document.getElementById("results");
-
-results.innerHTML="";
-
-if(input.includes("country")){
-
-results.innerHTML=`
-<h2>Country Recommendations</h2>
-<img src="images/country1.jpg" width="300">
-<img src="images/country2.jpg" width="300">
-`;
-
-}
-
-else if(input.includes("temple")){
-
-results.innerHTML=`
-<h2>Temple Recommendations</h2>
-<img src="images/temple1.jpg" width="300">
-<img src="images/temple2.jpg" width="300">
-`;
-
-}
-
-else if(input.includes("beach")){
-
-results.innerHTML=`
-<h2>Beach Recommendations</h2>
-<img src="images/beach1.jpg" width="300">
-<img src="images/beach2.jpg" width="300">
-`;
-
-}
-
-else{
-
-results.innerHTML="<p>No results found. Try beach, temple, or country.</p>";
-
-}
-
-}
-
-function clearSearch(){
-document.getElementById("searchInput").value="";
-document.getElementById("results").innerHTML="";
-}
-
-</script>
+        function clearSearch() {
+            document.getElementById("searchInput").value = "";
+            document.getElementById("results").innerHTML = "";
+        }
+    </script>
 
 </body>
 </html>
